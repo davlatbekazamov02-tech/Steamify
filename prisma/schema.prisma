@@ -1,0 +1,337 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  MENTOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum SessionStatus {
+  DRAFT
+  PUBLISHED
+  OPEN
+  LIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum RegistrationStatus {
+  REGISTERED
+  CHECKED_IN
+  ABSENT
+  CANCELLED
+}
+
+enum CheckInMethod {
+  QR
+  MANUAL
+}
+
+enum PointType {
+  ATTENDANCE
+  WINNER
+  BEST_DEBATER
+  REFERRAL
+  BONUS
+  PENALTY
+  ADMIN_ADJUSTMENT
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+model User {
+  id               String    @id @default(cuid())
+  email            String?   @unique
+  emailVerified    DateTime?
+  firstName        String
+  lastName         String
+  phone            String?
+  image            String?
+  role             Role      @default(USER)
+  regionId         String?
+  region           Region?   @relation(fields: [regionId], references: [id])
+  totalXp          Int       @default(0)
+  level            Int       @default(1)
+  referralCode     String    @unique @default(cuid())
+  referredById     String?
+  referredBy       User?     @relation("UserReferrals", fields: [referredById], references: [id])
+  referrals        User[]    @relation("UserReferrals")
+  isActive         Boolean   @default(true)
+  telegramId       String?   @unique
+  telegramUsername String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  accounts         Account[]
+  registrations    SessionRegistration[]
+  attendances      Attendance[]
+  pointHistory     PointTransaction[]
+  badges           UserBadge[]
+  notifications    Notification[]
+  applications     Application[]
+  mentorSessions   MentorAssignment[]
+  auditLogs        AuditLog[]
+  teams            Team[]
+
+  @@index([totalXp])
+  @@index([regionId])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Region {
+  id        String   @id
+  name      String
+  slug      String   @unique
+  users     User[]
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id                 String         @id @default(cuid())
+  title              String
+  description        String
+  coverImage         String?
+  date               DateTime
+  startTime          String
+  endTime            String
+  location           String
+  agenda             String?
+  registrationStart  DateTime
+  registrationEnd    DateTime
+  checkInStart       DateTime
+  checkInEnd         DateTime
+  attendanceXp       Int            @default(10)
+  winnerXp           Int            @default(50)
+  bestDebaterXp      Int            @default(30)
+  maxParticipants    Int            @default(100)
+  status             SessionStatus  @default(OPEN)
+  createdBy          String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  registrations      SessionRegistration[]
+  attendances        Attendance[]
+  teams              Team[]
+  mentors            MentorAssignment[]
+  points             PointTransaction[]
+
+  @@index([status])
+  @@index([date])
+}
+
+model SessionRegistration {
+  id           String             @id @default(cuid())
+  userId       String
+  sessionId    String
+  teamId       String?
+  status       RegistrationStatus @default(REGISTERED)
+  registeredAt DateTime           @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  team    Team?   @relation(fields: [teamId], references: [id])
+
+  @@unique([userId, sessionId])
+  @@index([sessionId])
+}
+
+model Attendance {
+  id          String        @id @default(cuid())
+  userId      String
+  sessionId   String
+  method      CheckInMethod @default(QR)
+  checkedInAt DateTime      @default(now())
+  checkedById String?
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sessionId])
+  @@index([sessionId])
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  sessionId String
+  mentorId  String?
+  createdAt DateTime @default(now())
+
+  session       Session               @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  mentor        User?                 @relation(fields: [mentorId], references: [id])
+  registrations SessionRegistration[]
+  assignments   MentorAssignment[]
+}
+
+model MentorAssignment {
+  id        String   @id @default(cuid())
+  mentorId  String
+  sessionId String
+  teamId    String?
+  createdAt DateTime @default(now())
+
+  mentor  User    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  team    Team?   @relation(fields: [teamId], references: [id])
+
+  @@unique([mentorId, sessionId])
+}
+
+model PointTransaction {
+  id        String    @id @default(cuid())
+  userId    String
+  sessionId String?
+  amount    Int
+  type      PointType
+  reason    String
+  createdBy String?
+  createdAt DateTime  @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session Session? @relation(fields: [sessionId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+}
+
+model Badge {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  icon        String
+  xpReward    Int         @default(0)
+  users       UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  badgeId   String
+  awardedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("info")
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+}
+
+model ApplicationSetting {
+  id              String    @id @default(cuid())
+  isOpen          Boolean   @default(false)
+  title           String    @default("STEAMIFY Arizalar qabuli")
+  description     String    @default("STEAM dasturida ishtirok etish uchun ariza topshiring")
+  deadline        DateTime?
+  openDate        DateTime?
+  maxApplications Int       @default(500)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Application {
+  id           String            @id @default(cuid())
+  userId       String
+  fullName     String
+  region       String
+  school       String
+  grade        String?
+  phone        String?
+  telegram     String?
+  motivation   String
+  experience   String?
+  achievements String?
+  whyJoin      String?
+  contribution String?
+  answers      String?
+  status       ApplicationStatus @default(SUBMITTED)
+  adminNotes   String?
+  submittedAt  DateTime          @default(now())
+  reviewedAt   DateTime?
+  reviewedBy   String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([userId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actorName  String
+  action     String
+  entityType String
+  entityId   String?
+  details    String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([createdAt])
+  @@index([action])
+}
+
+model SystemSetting {
+  id                  String   @id @default(cuid())
+  attendanceXp        Int      @default(10)
+  winnerXp            Int      @default(50)
+  bestDebaterXp       Int      @default(30)
+  referralXp          Int      @default(5)
+  level1Xp            Int      @default(0)
+  level2Xp            Int      @default(100)
+  level3Xp            Int      @default(250)
+  level4Xp            Int      @default(500)
+  level5Xp            Int      @default(1000)
+  platformName        String   @default("STEAMIFY")
+  applicationsEnabled Boolean  @default(false)
+  registrationOpen    Boolean  @default(true)
+  updatedAt           DateTime @updatedAt
+}

@@ -1,0 +1,39 @@
+{
+  "name": "steamify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "@types/dompurify": "^3.0.5",
+    "@types/node": "^26.5.1",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.16",
+    "clsx": "^2.1.1",
+    "dompurify": "^3.4.15",
+    "eslint": "^9.39.5",
+    "isomorphic-dompurify": "^2.16.0",
+    "lucide-react": "^1.45.0",
+    "next": "^16.3.5",
+    "next-intl": "^4.14.4",
+    "postcss": "^8.4.31",
+    "prisma": "^6.4.1",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^3.3.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "deepmerge-ts": ">=8.0.0"
+  }
+}
