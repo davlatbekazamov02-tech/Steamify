@@ -57,13 +57,11 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#070b14]/80 backdrop-blur-lg border-b border-cyan-500/20">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-              <Image
-                src="/images/STEMIFY-logo.png"
-                alt="STEMIFY"
-                width={32}
-                height={32}
-                className="object-contain"
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#0a1628] border border-cyan-500/40 flex items-center justify-center">
+              <img
+                src="/images/logo.jpg"
+                alt="STEAMIFY"
+                className="w-full h-full object-cover"
               />
             </div>
             <span className="text-xl font-black tracking-wider">
@@ -469,13 +467,11 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-                  <Image
-                    src="/images/STEMIFY-logo.png"
-                    alt="STEMIFY"
-                    width={32}
-                    height={32}
-                    className="object-contain"
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#0a1628] border border-cyan-500/40 flex items-center justify-center">
+                  <img
+                    src="/images/logo.jpg"
+                    alt="STEAMIFY"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <span className="text-xl font-black">
