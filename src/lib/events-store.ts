@@ -14,6 +14,7 @@ export interface SteamEvent {
   category: string;
   createdBy: string;
   createdAt: string;
+  photos?: string[]; // Tadbir fotosuratlar URL lari
 }
 
 export interface EventRegistration {
@@ -67,6 +68,15 @@ export function deleteEvent(id: string): void {
   saveToStorage(EVENTS_KEY, events);
   const regs = getRegistrations().filter((r) => r.eventId !== id);
   saveToStorage(REGISTRATIONS_KEY, regs);
+}
+
+export function updateEvent(id: string, data: Partial<SteamEvent>): SteamEvent | null {
+  const events = getEvents();
+  const index = events.findIndex((e) => e.id === id);
+  if (index === -1) return null;
+  events[index] = { ...events[index], ...data };
+  saveToStorage(EVENTS_KEY, events);
+  return events[index];
 }
 
 export function getRegistrations(): EventRegistration[] {

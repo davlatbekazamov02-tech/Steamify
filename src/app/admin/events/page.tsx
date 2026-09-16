@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Navbar } from "@/components/layout/navbar";
-import { Plus, Trash2, Users, CheckCircle2, Clock, AlertCircle, X } from "lucide-react";
+import { Plus, Trash2, Users, CheckCircle2, Clock, AlertCircle, X, Camera, Image as ImageIcon } from "lucide-react";
 import { UZBEKISTAN_REGIONS, getRegionName } from "@/lib/regions";
 import {
   getEvents,
   addEvent,
   deleteEvent,
+  updateEvent,
   getEventRegistrationCount,
   getEventRegistrations,
   SteamEvent,
@@ -23,6 +24,10 @@ export default function AdminEventsPage() {
   const [selectedEventRegs, setSelectedEventRegs] = useState<{ title: string; regs: EventRegistration[] } | null>(null);
   // ✅ confirm() o'rniga custom modal
   const [deleteTarget, setDeleteTarget] = useState<SteamEvent | null>(null);
+  // ✅ Foto qo'shish modal
+  const [photoTarget, setPhotoTarget] = useState<SteamEvent | null>(null);
+  const [newPhotoUrl, setNewPhotoUrl] = useState("");
+  const [photoError, setPhotoError] = useState<string | null>(null);
 
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -115,6 +120,49 @@ export default function AdminEventsPage() {
     });
   };
 
+  // ✅ Foto qo'shish
+  const handleAddPhoto = () => {
+    if (!photoTarget) return;
+    setPhotoError(null);
+
+    const url = newPhotoUrl.trim();
+    if (!url) {
+      setPhotoError("URL kiriting.");
+      return;
+    }
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      setPhotoError("To'g'ri URL kiriting (https:// bilan boshlanishi kerak).");
+      return;
+    }
+
+    const existingPhotos = photoTarget.photos || [];
+    if (existingPhotos.length >= 20) {
+      setPhotoError("Maksimal 20 ta fotosurat qo'shish mumkin.");
+      return;
+    }
+
+    const updated = updateEvent(photoTarget.id, {
+      photos: [...existingPhotos, url],
+    });
+
+    if (updated) {
+      setPhotoTarget(updated);
+      setNewPhotoUrl("");
+      loadEvents();
+    }
+  };
+
+  const handleRemovePhoto = (photoUrl: string) => {
+    if (!photoTarget) return;
+    const updated = updateEvent(photoTarget.id, {
+      photos: (photoTarget.photos || []).filter((p) => p !== photoUrl),
+    });
+    if (updated) {
+      setPhotoTarget(updated);
+      loadEvents();
+    }
+  };
+
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-[#070b14]">
       <div className="hidden lg:block h-full">
@@ -190,13 +238,26 @@ export default function AdminEventsPage() {
                           </button>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <button
-                            onClick={() => handleDelete(event)}
-                            aria-label={`${event.title} tadbirini o'chirish`}
-                            className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-colors cursor-pointer"
-                          >
-                            <Trash2 className="w-5 h-5" aria-hidden="true" />
-                          </button>
+                          <div className="flex items-center justify-end gap-2">
+                            {/* Foto qo'shish — faqat o'tib ketgan tadbirlar uchun */}
+                            {event.date < todayStr && (
+                              <button
+                                onClick={() => { setPhotoTarget(event); setNewPhotoUrl(""); setPhotoError(null); }}
+                                aria-label={`${event.title} tadbiriga fotosurat qo'shish`}
+                                className="p-2 text-cyan-500 hover:bg-cyan-50 dark:hover:bg-cyan-950/30 rounded-lg transition-colors cursor-pointer"
+                                title="Fotosurat qo'shish"
+                              >
+                                <Camera className="w-4 h-4" aria-hidden="true" />
+                              </button>
+                            )}
+                            <button
+                              onClick={() => handleDelete(event)}
+                              aria-label={`${event.title} tadbirini o'chirish`}
+                              className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-colors cursor-pointer"
+                            >
+                              <Trash2 className="w-5 h-5" aria-hidden="true" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -386,6 +447,106 @@ export default function AdminEventsPage() {
           </div>
         </div>
       )}
+      {/* ✅ Foto qo'shish modal */}
+      {photoTarget && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="photo-dialog-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        >
+          <div className="bg-white dark:bg-[#0d1628] border border-cyan-500/30 rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 id="photo-dialog-title" className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Camera className="w-4 h-4 text-cyan-500" aria-hidden="true" />
+                  Fotosurat qo&apos;shish
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">{photoTarget.title}</p>
+              </div>
+              <button
+                onClick={() => setPhotoTarget(null)}
+                aria-label="Yopish"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                <X className="w-4 h-4" aria-hidden="true" />
+              </button>
+            </div>
+
+            {/* URL qo'shish */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                Fotosurat URL (Unsplash, Google Photos, Cloudinary):
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  value={newPhotoUrl}
+                  onChange={(e) => { setNewPhotoUrl(e.target.value); setPhotoError(null); }}
+                  placeholder="https://images.unsplash.com/..."
+                  className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[#070b14] border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                  onKeyDown={(e) => e.key === "Enter" && handleAddPhoto()}
+                />
+                <button
+                  onClick={handleAddPhoto}
+                  className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl transition-all"
+                >
+                  Qo&apos;shish
+                </button>
+              </div>
+              {photoError && (
+                <p className="text-[11px] text-rose-400 flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" aria-hidden="true" />
+                  {photoError}
+                </p>
+              )}
+            </div>
+
+            {/* Mavjud fotosuratlar */}
+            {(photoTarget.photos || []).length > 0 ? (
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Qo&apos;shilgan fotosuratlar ({(photoTarget.photos || []).length}/20):
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {(photoTarget.photos || []).map((url, idx) => (
+                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 aspect-video bg-slate-100 dark:bg-slate-900">
+                      <img
+                        src={url}
+                        alt={`Fotosurat ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z'/%3E%3C/svg%3E";
+                        }}
+                      />
+                      <button
+                        onClick={() => handleRemovePhoto(url)}
+                        aria-label="Fotosuratni o'chirish"
+                        className="absolute top-1 right-1 w-6 h-6 rounded-full bg-rose-500 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" aria-hidden="true" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-6 text-slate-400">
+                <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-40" aria-hidden="true" />
+                <p className="text-xs">Hozircha fotosuratlar yo&apos;q</p>
+              </div>
+            )}
+
+            <button
+              onClick={() => setPhotoTarget(null)}
+              className="w-full py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold rounded-xl text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            >
+              Yopish
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ✅ Delete confirm modal — confirm() o'rniga */}
       {deleteTarget && (
         <div
