@@ -152,14 +152,12 @@ export function Sidebar() {
       {/* Brand Logo Header */}
       <div className="h-16 flex items-center px-4 gap-3 border-b border-slate-100 dark:border-[#141e33]/60 shrink-0">
         <Link href="/" className="flex items-center gap-2.5">
-          {/* SVG Logo */}
-          <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.2)] shrink-0">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
-              {/* Outer ring */}
-              <circle cx="20" cy="20" r="18" stroke="#06b6d4" strokeWidth="1.5" strokeOpacity="0.6"/>
-              {/* S shape — STEAM */}
-              <path d="M14 16c0-2.2 1.8-4 4-4h5a3 3 0 010 6h-4a3 3 0 000 6h5c2.2 0 4-1.8 4-4" stroke="#06b6d4" strokeWidth="2.2" strokeLinecap="round"/>
-            </svg>
+          <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-[#0a1628] border border-cyan-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.2)] shrink-0">
+            <img
+              src="/images/logo.jpg"
+              alt="STEAMIFY Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <div className="flex items-center gap-1.5">

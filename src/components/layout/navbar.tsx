@@ -424,13 +424,11 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
                 className="flex items-center gap-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center">
-                  <Image
-                    src="/images/STEMIFY-logo.png"
-                    alt="STEMIFY"
-                    width={24}
-                    height={24}
-                    className="object-contain"
+                <div className="w-8 h-8 rounded-xl overflow-hidden bg-[#0a1628] border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/logo.jpg"
+                    alt="STEAMIFY"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <span className="font-black text-base tracking-wider text-slate-900 dark:text-white">
