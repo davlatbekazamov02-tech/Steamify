@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -79,8 +79,15 @@ function PhoneInput({
           autoComplete="tel"
           value={value}
           onChange={handleChange}
+          onKeyDown={(e) => {
+            // Raqam, backspace, delete, arrow, tab, ctrl, meta — ruxsat
+            const allowed = /^[0-9]$/.test(e.key) || [
+              "Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter"
+            ].includes(e.key) || e.ctrlKey || e.metaKey;
+            if (!allowed) e.preventDefault();
+          }}
           disabled={disabled}
-          maxLength={12} // "XX XXX XX XX"
+          maxLength={12}
           placeholder="90 123 45 67"
           className="w-full px-3 py-3 bg-transparent text-sm text-white placeholder:text-slate-600 focus:outline-none disabled:opacity-50"
         />
@@ -184,7 +191,9 @@ function LoginContent() {
       return;
     }
 
-    document.cookie = `steamify_role=${cred.role}; path=/; max-age=2592000`;
+    document.cookie = `STEMIFY_role=${cred.role}; path=/; max-age=2592000`;
+    document.cookie = `STEMIFY_firstName=${encodeURIComponent(cred.firstName)}; path=/; max-age=2592000`;
+    document.cookie = `STEMIFY_lastName=${encodeURIComponent(cred.lastName)}; path=/; max-age=2592000`;
 
     // Agar foydalanuvchi boshqa sahifadan yo'naltirilgan bo'lsa, o'sha yerga qaytarish
     if (fromPath && fromPath !== "/login") {
@@ -244,6 +253,10 @@ function LoginContent() {
       lastName: regLastName.trim(),
     });
 
+    // Ism/familiyani cookie ga saqlash (login qilmasdan ham ko'rinsin)
+    document.cookie = `STEMIFY_firstName=${encodeURIComponent(regFirstName.trim())}; path=/; max-age=2592000`;
+    document.cookie = `STEMIFY_lastName=${encodeURIComponent(regLastName.trim())}; path=/; max-age=2592000`;
+
     setRegLoading(false);
     setRegSuccess(true);
   };
@@ -258,10 +271,10 @@ function LoginContent() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] mb-4">
-            <Image src="/images/steamify-logo.png" alt="STEAMIFY" width={44} height={44} className="object-contain" priority />
+            <Image src="/images/STEMIFY-logo.png" alt="STEMIFY" width={44} height={44} className="object-contain" priority />
           </div>
-          <h1 className="text-2xl font-black text-white tracking-wider">STEAMIFY</h1>
-          <p className="text-xs text-slate-500 mt-1">O&apos;zbekiston STEAM ta&apos;lim platformasi</p>
+          <h1 className="text-2xl font-black text-white tracking-wider">STEMIFY</h1>
+          <p className="text-xs text-slate-500 mt-1">O&apos;zbekiston STEM ta&apos;lim platformasi</p>
         </div>
 
         {/* Card */}
@@ -545,7 +558,7 @@ function LoginContent() {
         {/* Footer badge */}
         <div className="flex items-center justify-center gap-1.5 mt-6 text-[11px] text-slate-700">
           <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
-          <span>Xavfsiz autentifikatsiya • STEAMIFY © 2026</span>
+          <span>Xavfsiz autentifikatsiya • STEMIFY © 2026</span>
         </div>
       </div>
     </div>

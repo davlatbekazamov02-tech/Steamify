@@ -1,11 +1,11 @@
-import { type Metadata } from "next";
+﻿import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
     default: "Admin Panel",
-    template: "%s — Admin | STEAMIFY",
+    template: "%s — Admin | STEMIFY",
   },
-  description: "STEAMIFY admin boshqaruv paneli. Foydalanuvchilar, tadbirlar va tizim sozlamalarini boshqaring.",
+  description: "STEMIFY admin boshqaruv paneli. Foydalanuvchilar, tadbirlar va tizim sozlamalarini boshqaring.",
   robots: {
     index: false,   // Admin sahifalar qidiruv tizimlarida ko'rinmasin
     follow: false,

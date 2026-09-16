@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
@@ -139,7 +139,7 @@ export function LeaderboardTable({
             )}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            STEAM musobaqalari va mashg'ulotlarida eng yuqori natija ko'rsatgan ishtirokchilar • {formatNumber(totalParticipants)} nafar ishtirokchi
+            STEM musobaqalari va mashg'ulotlarida eng yuqori natija ko'rsatgan ishtirokchilar • {formatNumber(totalParticipants)} nafar ishtirokchi
           </p>
         </div>
 

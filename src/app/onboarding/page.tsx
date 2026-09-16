@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -72,7 +72,7 @@ export default function OnboardingPage() {
             <span>1-qadam: Profilni to'ldirish</span>
           </div>
           <h1 className="text-lg sm:text-xl font-black text-white tracking-wide">
-            STEAMIFY ga Xush Kelibsiz!
+            STEMIFY ga Xush Kelibsiz!
           </h1>
           <p className="text-xs text-slate-400">
             Hududingiz bo'yicha shaxsiy reytingingizni shakllantirish uchun ma'lumotlarni to'ldiring

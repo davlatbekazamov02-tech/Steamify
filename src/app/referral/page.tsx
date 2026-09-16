@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { Share2, Copy, Check, Gift, Users, Trophy } from "lucide-react";
@@ -12,7 +12,7 @@ export default function ReferralPage() {
   const [currentRole, setCurrentRole] = useState<UserRole>("USER");
 
   useEffect(() => {
-    const match = document.cookie.match(new RegExp("(^| )steamify_role=([^;]+)"));
+    const match = document.cookie.match(new RegExp("(^| )STEMIFY_role=([^;]+)"));
     if (match && match[2]) setCurrentRole(match[2] as UserRole);
   }, []);
 

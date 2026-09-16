@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SECURITY UTILITIES
  * XSS Prevention, URL Validation, Input Sanitization
  */
@@ -27,9 +27,9 @@ export function sanitizeText(input: string): string {
  */
 const ALLOWED_IMAGE_DOMAINS = [
   'images.unsplash.com',
-  'steamify.uz',
+  'STEMIFY.uz',
   'res.cloudinary.com',
-  'cdn.steamify.uz',
+  'cdn.STEMIFY.uz',
 ];
 
 /**

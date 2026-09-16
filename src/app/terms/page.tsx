@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { type Metadata } from "next";
 import { FileText, ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Foydalanish Shartlari",
-  description: "STEAMIFY platformasidan foydalanish shartlari va qoidalari.",
+  description: "STEMIFY platformasidan foydalanish shartlari va qoidalari.",
 };
 
 export default function TermsPage() {
@@ -37,7 +37,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-bold text-white mb-3">1. Umumiy qoidalar</h2>
             <p>
-              STEAMIFY platformasidan foydalanish orqali siz ushbu foydalanish shartlariga
+              STEMIFY platformasidan foydalanish orqali siz ushbu foydalanish shartlariga
               to&apos;liq rozilik bildirasiz. Agar siz ushbu shartlarga rozi bo&apos;lmasangiz,
               platformadan foydalanishni to&apos;xtating.
             </p>
@@ -95,7 +95,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-bold text-white mb-3">6. Hisobni bloklash</h2>
             <p>
-              STEAMIFY ma&apos;muriyati quyidagi holatlarda foydalanuvchi hisobini
+              STEMIFY ma&apos;muriyati quyidagi holatlarda foydalanuvchi hisobini
               ogohlantirishsiz bloklash huquqini o&apos;zida saqlaydi:
             </p>
             <ul className="space-y-2 list-disc list-inside text-slate-400 mt-3">
@@ -108,7 +108,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-bold text-white mb-3">7. O&apos;zgartirishlar</h2>
             <p>
-              STEAMIFY ushbu shartlarni istalgan vaqtda o&apos;zgartirish huquqini o&apos;zida
+              STEMIFY ushbu shartlarni istalgan vaqtda o&apos;zgartirish huquqini o&apos;zida
               saqlaydi. Muhim o&apos;zgartirishlar haqida foydalanuvchilar platformada xabar
               orqali ogohlantiriladi.
             </p>
@@ -119,10 +119,10 @@ export default function TermsPage() {
             <p>
               Savollar va shikoyatlar uchun{" "}
               <a
-                href="mailto:info@steamify.uz"
+                href="mailto:info@STEMIFY.uz"
                 className="text-cyan-400 hover:text-cyan-300 transition-colors"
               >
-                info@steamify.uz
+                info@STEMIFY.uz
               </a>{" "}
               manziliga murojaat qiling.
             </p>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { 
@@ -29,7 +29,7 @@ import { APP_URL } from "@/lib/constants";
 export default function SettingsPage() {
   const [currentRole, setCurrentRole] = useState<UserRole>("USER");
   useEffect(() => {
-    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
     if (match && match[2]) setCurrentRole(match[2] as UserRole);
   }, []);
   const currentUser = DEMO_USERS[currentRole];

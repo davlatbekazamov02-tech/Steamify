@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { type Metadata } from "next";
 import { Shield, ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Maxfiylik Siyosati",
-  description: "STEAMIFY platformasining maxfiylik siyosati va shaxsiy ma'lumotlarni himoya qilish qoidalari.",
+  description: "STEMIFY platformasining maxfiylik siyosati va shaxsiy ma'lumotlarni himoya qilish qoidalari.",
 };
 
 export default function PrivacyPage() {
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-base font-bold text-white mb-3">1. Umumiy ma'lumot</h2>
             <p>
-              STEAMIFY ("biz", "bizning") O'zbekiston STEAM ta'lim va reyting platformasi bo'lib,
+              STEMIFY ("biz", "bizning") O'zbekiston STEM Ta'lim va reyting platformasi bo'lib,
               foydalanuvchilarning shaxsiy ma'lumotlarini himoya qilishga qat'iy amal qiladi.
               Ushbu maxfiylik siyosati platformamizdan foydalanganda qanday ma'lumotlar
               to'planishi va ulardan qanday foydalanilishi haqida ma'lumot beradi.
@@ -102,10 +102,10 @@ export default function PrivacyPage() {
             <p>
               Maxfiylik siyosatiga oid savollar uchun{" "}
               <a
-                href="mailto:info@steamify.uz"
+                href="mailto:info@STEMIFY.uz"
                 className="text-cyan-400 hover:text-cyan-300 transition-colors"
               >
-                info@steamify.uz
+                info@STEMIFY.uz
               </a>{" "}
               manziliga murojaat qiling.
             </p>

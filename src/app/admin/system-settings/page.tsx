@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import {
@@ -11,22 +11,48 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Navbar } from "@/components/layout/navbar";
 import { ANIMATION_SPEED, XP_REWARDS } from "@/lib/constants";
 
+const SETTINGS_KEY = "STEMIFY_system_settings";
+
 export default function AdminSystemSettingsPage() {
-  const [applicationsEnabled, setApplicationsEnabled] = useState(true);
-  const [deadline, setDeadline] = useState("2026-10-31");
-  const [maxApplications, setMaxApplications] = useState(500);
-  const [attendanceXp, setAttendanceXp] = useState(XP_REWARDS.SESSION_CHECKIN);
-  const [winnerXp, setWinnerXp] = useState(XP_REWARDS.CHALLENGE_FIRST_PLACE);
-  const [bestDebaterXp, setBestDebaterXp] = useState(XP_REWARDS.WORKSHOP_COMPLETION);
-  const [referralXp, setReferralXp] = useState(XP_REWARDS.REFERRAL);
+  // localStorage dan oldingi sozlamalarni yuklash
+  const loadSettings = () => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  };
+
+  const saved = typeof window !== "undefined" ? loadSettings() : null;
+
+  const [applicationsEnabled, setApplicationsEnabled] = useState<boolean>(saved?.applicationsEnabled ?? true);
+  const [deadline, setDeadline] = useState<string>(saved?.deadline ?? "2026-10-31");
+  const [maxApplications, setMaxApplications] = useState<number>(saved?.maxApplications ?? 500);
+  const [attendanceXp, setAttendanceXp] = useState<number>(saved?.attendanceXp ?? XP_REWARDS.SESSION_CHECKIN);
+  const [winnerXp, setWinnerXp] = useState<number>(saved?.winnerXp ?? XP_REWARDS.CHALLENGE_FIRST_PLACE);
+  const [bestDebaterXp, setBestDebaterXp] = useState<number>(saved?.bestDebaterXp ?? XP_REWARDS.WORKSHOP_COMPLETION);
+  const [referralXp, setReferralXp] = useState<number>(saved?.referralXp ?? XP_REWARDS.REFERRAL);
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   // ✅ setTimeout ref — cleanup uchun
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleSave = () => {
+    // ✅ localStorage ga saqlash
+    const settings = {
+      applicationsEnabled,
+      deadline,
+      maxApplications,
+      attendanceXp,
+      winnerXp,
+      bestDebaterXp,
+      referralXp,
+    };
+    try {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    } catch {}
+
     setSavedSuccess(true);
-    // ✅ Oldingi timeoutni bekor qilib yangi o'rnatish
     if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
     saveTimeoutRef.current = setTimeout(
       () => setSavedSuccess(false),

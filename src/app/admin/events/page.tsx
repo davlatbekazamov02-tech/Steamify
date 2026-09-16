@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -24,9 +24,9 @@ export default function AdminEventsPage() {
   // ✅ confirm() o'rniga custom modal
   const [deleteTarget, setDeleteTarget] = useState<SteamEvent | null>(null);
 
-  const todayStr = new Date().toISOString().split("T")[0];
+  const [formError, setFormError] = useState<string | null>(null);
 
-  // Form states
+  const todayStr = new Date().toISOString().split("T")[0];
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -54,6 +54,18 @@ export default function AdminEventsPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
+    // Sana validatsiyasi — o'tib ketgan sana qabul qilinmaydi
+    if (date < todayStr) {
+      setFormError("Tadbir sanasi bugundan oldingi bo'lishi mumkin emas.");
+      return;
+    }
+    if (deadlineDate && deadlineDate > date) {
+      setFormError("Ro'yxatdan o'tish muddati tadbir sanasidan keyin bo'lishi mumkin emas.");
+      return;
+    }
+
     addEvent({
       title,
       description,
@@ -64,7 +76,7 @@ export default function AdminEventsPage() {
       region,
       maxParticipants,
       xpReward,
-      category: category || "STEAM",
+      category: category || "STEM",
       createdBy: "Bosh Admin",
     });
     setIsModalOpen(false);
@@ -79,6 +91,7 @@ export default function AdminEventsPage() {
     setMaxParticipants(LIMITS.LEADERBOARD_PAGE_SIZE * 5);
     setXpReward(XP_REWARDS.EVENT_PARTICIPATION);
     setRegion("toshkent-shahri");
+    setFormError(null);
     loadEvents();
   };
 
@@ -210,14 +223,21 @@ export default function AdminEventsPage() {
               </h2>
               <button
                 type="button"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => { setIsModalOpen(false); setFormError(null); }}
                 aria-label="Modalni yopish"
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
-            
+
+            {formError && (
+              <div role="alert" className="flex items-start gap-2 p-3 mb-3 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+                <span>{formError}</span>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nomi</label>

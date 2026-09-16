@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { 
@@ -49,7 +49,7 @@ export default function MyApplicationsPage() {
 
   useEffect(() => {
     // Read role from cookie
-    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
     if (match && match[2]) {
       const role = match[2] as UserRole;
       if (DEMO_USERS[role]) {
@@ -117,7 +117,7 @@ export default function MyApplicationsPage() {
                 Mening Arizalarim
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                STEAM Camp va maxsus dasturlarga topshirilgan arizalaringiz holati
+                STEM Camp va maxsus dasturlarga topshirilgan arizalaringiz holati
               </p>
             </div>
 
@@ -291,7 +291,7 @@ export default function MyApplicationsPage() {
                 <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                   <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <Send className="w-4 h-4 text-cyan-500" />
-                    <span>STEAM Camp Dasturiga Ariza</span>
+                    <span>STEM Camp Dasturiga Ariza</span>
                   </h3>
                   <button
                     onClick={() => setShowApplyModal(false)}

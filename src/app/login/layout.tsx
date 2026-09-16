@@ -1,10 +1,10 @@
-import { type Metadata } from "next";
+﻿import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Tizimga Kirish",
   description:
-    "STEAMIFY ga Google yoki Telegram orqali kiring. O'zbekiston STEAM ta'lim va reyting platformasiga xush kelibsiz.",
-  keywords: ["kirish", "login", "Google", "Telegram", "STEAM", "autentifikatsiya"],
+    "STEMIFY ga telefon raqam va parol bilan kiring. O'zbekiston STEM Ta'lim va reyting platformasiga xush kelibsiz.",
+  keywords: ["kirish", "login", "telefon", "parol", "STEM", "autentifikatsiya"],
 };
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {

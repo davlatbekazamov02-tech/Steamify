@@ -1,11 +1,11 @@
-import { type Metadata } from "next";
+﻿import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
     default: "Mentor Panel",
-    template: "%s — Mentor | STEAMIFY",
+    template: "%s — Mentor | STEMIFY",
   },
-  description: "STEAMIFY mentor paneli. QR skaner, sessiyalar va jamoalarni boshqaring.",
+  description: "STEMIFY mentor paneli. QR skaner, sessiyalar va jamoalarni boshqaring.",
   robots: {
     index: false,
     follow: false,

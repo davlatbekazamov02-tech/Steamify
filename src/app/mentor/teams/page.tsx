@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ interface Team {
   members: TeamMember[];
 }
 
-const TEAMS_KEY = "steamify_mentor_teams";
+const TEAMS_KEY = "STEMIFY_mentor_teams";
 
 export default function MentorTeamsPage() {
   const [teams, setTeams] = useState<Team[]>([]);

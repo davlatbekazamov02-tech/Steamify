@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // Root metadata src/app/layout.tsx da belgilangan
 // events-store localStorage based bo'lgani uchun "use client" kerak
@@ -59,8 +59,8 @@ export default function LandingPage() {
           <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
               <Image
-                src="/images/steamify-logo.png"
-                alt="STEAMIFY"
+                src="/images/STEMIFY-logo.png"
+                alt="STEMIFY"
                 width={32}
                 height={32}
                 className="object-contain"
@@ -90,6 +90,44 @@ export default function LandingPage() {
 
       {/* ✅ Hero — animatsiyalar alohida Client Component da */}
       <HeroCarousel heroImages={heroImages} />
+
+      {/* ✅ Partners scrolling strip — fncp.uz ga o'xshash */}
+      <section className="py-5 border-t border-white/5 bg-[#070b14] relative overflow-hidden">
+        <div className="relative">
+          {/* Fade left/right */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#070b14] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#070b14] to-transparent z-10 pointer-events-none" />
+
+          <div className="flex overflow-hidden">
+            {/* 2 ta nusxa — cheksiz scroll uchun */}
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                className="flex items-center gap-10 shrink-0"
+                aria-hidden={copy === 1}
+                style={{ animation: `partnersScroll 30s linear infinite` }}
+              >
+                {[
+                  { name: "Yoshlar Ishlari Agentligi", abbr: "YIA" },
+                  { name: "Iqtisodiyot va Moliya Vazirligi", abbr: "IMV" },
+                  { name: "Markaziy Bank", abbr: "MB" },
+                  { name: "IT Park Uzbekistan", abbr: "ITP" },
+                  { name: "Raqamli Ta'lim", abbr: "RT" },
+                  { name: "TDIU", abbr: "TDIU" },
+                  { name: "Yoshlar Ishlari", abbr: "YIA" },
+                ].map((p, i) => (
+                  <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/8 shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[9px] font-black text-cyan-400">
+                      {p.abbr.slice(0, 1)}
+                    </div>
+                    <span className="text-xs font-semibold text-slate-400 whitespace-nowrap">{p.name}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
       <section className="py-16 border-t border-cyan-500/20 bg-gradient-to-b from-[#070b14] to-[#0a0f1a]">
@@ -125,8 +163,8 @@ export default function LandingPage() {
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center" aria-hidden="true">
                 <Sparkles className="w-6 h-6 text-purple-400" />
               </div>
-              <div className="text-3xl font-black text-white mb-1">5+</div>
-              <div className="text-xs text-slate-400 uppercase tracking-wider">STEAM Yo&apos;nalishlari</div>
+              <div className="text-3xl font-black text-white mb-1">4</div>
+              <div className="text-xs text-slate-400 uppercase tracking-wider">STEM Yo&apos;nalishlari</div>
             </div>
           </div>
         </div>
@@ -283,7 +321,7 @@ export default function LandingPage() {
               Bizning <span className="text-cyan-400">Jamoa</span>
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              STEAMIFY platformasini yaratgan va rivojlantirgan professional mutaxassislar jamoasi
+              STEMIFY platformasini yaratgan va rivojlantirgan professional mutaxassislar jamoasi
             </p>
           </div>
 
@@ -384,10 +422,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Nima Uchun <span className="text-cyan-400">STEAMIFY</span>?
+              Nima Uchun <span className="text-cyan-400">STEMIFY</span>?
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              STEAM ta&apos;lim platformasi sifatida biz yoshlarning bilim va ko&apos;nikmalarini rivojlantirishga yordam beramiz
+              STEM ta&apos;lim platformasi sifatida biz yoshlarning bilim va ko&apos;nikmalarini rivojlantirishga yordam beramiz
             </p>
           </div>
 
@@ -433,8 +471,8 @@ export default function LandingPage() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
                   <Image
-                    src="/images/steamify-logo.png"
-                    alt="STEAMIFY"
+                    src="/images/STEMIFY-logo.png"
+                    alt="STEMIFY"
                     width={32}
                     height={32}
                     className="object-contain"
@@ -445,7 +483,7 @@ export default function LandingPage() {
                 </span>
               </div>
               <p className="text-sm text-slate-400">
-                O&apos;zbekiston STEAM ta&apos;lim va reyting platformasi
+                O&apos;zbekiston STEM ta&apos;lim va reyting platformasi
               </p>
             </div>
 
@@ -472,8 +510,8 @@ export default function LandingPage() {
               <address className="not-italic space-y-2 text-sm text-slate-400">
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-cyan-500" aria-hidden="true" />
-                  <a href="mailto:info@steamify.uz" className="hover:text-cyan-400 transition-colors">
-                    info@steamify.uz
+                  <a href="mailto:info@STEMIFY.uz" className="hover:text-cyan-400 transition-colors">
+                    info@STEMIFY.uz
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
@@ -485,7 +523,7 @@ export default function LandingPage() {
           </div>
 
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>© 2026 STEAMIFY. O&apos;zbekiston STEAM Ta&apos;lim Platformasi</p>
+            <p>© 2026 STEMIFY. O&apos;zbekiston STEM ta&apos;lim Platformasi</p>
             <nav aria-label="Footer navigatsiyasi" className="flex gap-6">
               <Link href="/privacy" className="hover:text-cyan-400 transition-colors">Maxfiylik</Link>
               <Link href="/terms" className="hover:text-cyan-400 transition-colors">Qoidalar</Link>

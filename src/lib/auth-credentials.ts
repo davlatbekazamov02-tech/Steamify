@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DEMO AUTH CREDENTIALS — Telefon raqam + Parol tizimi
  * Real loyihada backend/database bilan ishlaydi.
  */
@@ -24,7 +24,7 @@ const SYSTEM_CREDENTIALS: Credential[] = [
   },
 ];
 
-const REGISTERED_USERS_KEY = "steamify_registered_users";
+const REGISTERED_USERS_KEY = "STEMIFY_registered_users";
 
 /** localStorage dan ro'yxatdan o'tgan foydalanuvchilarni olish */
 function getRegisteredUsers(): Credential[] {

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -65,13 +65,13 @@ export default function AdminDashboardPage() {
             <div className="relative z-10 max-w-3xl">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span>STEAMIFY Markaziy Boshqaruv Tizimi</span>
+                <span>STEMIFY Markaziy Boshqaruv Tizimi</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-black text-white">
                 Boshqaruv va Monitoring Markazi
               </h1>
               <p className="text-sm text-slate-300 mt-2">
-                STEAM platformasining barcha viloyatlar bo'yicha ishtirokchilari, o'tkazilayotgan tadbirlar, arizalar va ballar dinamikasi nazorati.
+                STEM platformasining barcha viloyatlar bo'yicha ishtirokchilari, o'tkazilayotgan tadbirlar, arizalar va ballar dinamikasi nazorati.
               </p>
             </div>
           </div>

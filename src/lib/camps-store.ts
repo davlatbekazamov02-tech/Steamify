@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 export interface CampProgram {
   id: string;
@@ -31,9 +31,9 @@ export interface CampApplication {
   submittedAt: string;
 }
 
-const CAMPS_KEY = "steamify_camp_programs";
-const APPLICATIONS_KEY = "steamify_submitted_applications";
-const GLOBAL_OPEN_KEY = "steamify_applications_global_open";
+const CAMPS_KEY = "STEMIFY_camp_programs";
+const APPLICATIONS_KEY = "STEMIFY_submitted_applications";
+const GLOBAL_OPEN_KEY = "STEMIFY_applications_global_open";
 
 function getFromStorage<T>(key: string, defaultValue: T): T {
   if (typeof window === "undefined") return defaultValue;

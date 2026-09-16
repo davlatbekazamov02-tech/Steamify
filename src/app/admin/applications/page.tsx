@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -505,7 +505,7 @@ export default function AdminApplicationsPage() {
                   required
                   value={campTitle}
                   onChange={(e) => setCampTitle(e.target.value)}
-                  placeholder="Masalan: STEAM Yozgi Innovatsiyalar Camp 2026"
+                  placeholder="Masalan: STEM Yozgi Innovatsiyalar Camp 2026"
                   className="w-full px-3 py-2 bg-slate-100 dark:bg-[#070b14] border border-slate-300 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
                 />
               </div>

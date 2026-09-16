@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Login talab qilinadigan sahifalar (prefix asosida)
@@ -22,7 +22,7 @@ const ROLE_PROTECTED: Record<string, string[]> = {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const role = request.cookies.get("steamify_role")?.value;
+  const role = request.cookies.get("STEMIFY_role")?.value;
 
   // ✅ Allaqachon login qilgan → /login ga kelsa dashboardga yo'naltir
   if (pathname === "/login" && role) {
@@ -51,7 +51,7 @@ export function middleware(request: NextRequest) {
     // Noto'g'ri cookie — login ga qaytarish va cookie o'chirish
     const loginUrl = new URL("/login", request.url);
     const response = NextResponse.redirect(loginUrl);
-    response.cookies.delete("steamify_role");
+    response.cookies.delete("STEMIFY_role");
     return response;
   }
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 export interface SteamEvent {
   id: string;
@@ -29,8 +29,8 @@ export interface EventRegistration {
   attendedAt?: string;
 }
 
-const EVENTS_KEY = "steamify_events";
-const REGISTRATIONS_KEY = "steamify_registrations";
+const EVENTS_KEY = "STEMIFY_events";
+const REGISTRATIONS_KEY = "STEMIFY_registrations";
 
 function getFromStorage<T>(key: string): T[] {
   if (typeof window === "undefined") return [];

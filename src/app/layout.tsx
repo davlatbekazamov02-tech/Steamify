@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -16,14 +16,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "STEAMIFY — O'zbekiston STEAM Ta'lim va Musobaqa Platformasi",
-    template: "%s | STEAMIFY",
+    default: "STEMIFY — O'zbekiston STEM Ta'lim va Musobaqa Platformasi",
+    template: "%s | STEMIFY",
   },
   description:
-    "STEAM platformasi — sessiyalar, tadbirlar, reyting va shaxsiy rivojlanish. Science, Technology, Engineering, Arts, Mathematics.",
-  keywords: ["STEAM", "ta'lim", "O'zbekiston", "reyting", "hackathon", "workshop"],
-  authors: [{ name: "STEAMIFY Team" }],
-  creator: "STEAMIFY",
+    "STEM platformasi — sessiyalar, tadbirlar, reyting va shaxsiy rivojlanish. Science, Technology, Engineering, Mathematics.",
+  keywords: ["STEM", "ta'lim", "O'zbekiston", "reyting", "hackathon", "workshop"],
+  authors: [{ name: "STEMIFY Team" }],
+  creator: "STEMIFY",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
 };
 

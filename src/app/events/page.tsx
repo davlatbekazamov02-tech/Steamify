@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -30,7 +30,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     // Load role from cookie
-    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
     if (match && match[2]) {
       const role = match[2] as UserRole;
       if (DEMO_USERS[role]) {

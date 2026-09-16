@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -37,16 +37,23 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
   const [roleSwitcherOpen, setRoleSwitcherOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentRole, setCurrentRole] = useState<UserRole>("SUPER_ADMIN");
+  const [cookieFirstName, setCookieFirstName] = useState("");
+  const [cookieLastName, setCookieLastName] = useState("");
 
   const profileRef = useRef<HTMLDivElement>(null);
   const roleSwitcherRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    const match = document.cookie.match(new RegExp("(^| )steamify_role=([^;]+)"));
+    const match = document.cookie.match(new RegExp("(^| )STEMIFY_role=([^;]+)"));
     if (match && match[2] && (match[2] as UserRole) in DEMO_USERS) {
       setCurrentRole(match[2] as UserRole);
     }
+    // Cookie dan haqiqiy ism olish
+    const fnMatch = document.cookie.match(new RegExp("(^| )STEMIFY_firstName=([^;]+)"));
+    const lnMatch = document.cookie.match(new RegExp("(^| )STEMIFY_lastName=([^;]+)"));
+    if (fnMatch?.[2]) setCookieFirstName(decodeURIComponent(fnMatch[2]));
+    if (lnMatch?.[2]) setCookieLastName(decodeURIComponent(lnMatch[2]));
   }, []);
 
   // Sahifa o'zgarganda mobile menu yopilsin
@@ -96,9 +103,14 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
 
   const currentUser = DEMO_USERS[currentRole] || DEMO_USERS.SUPER_ADMIN;
 
+  // Haqiqiy ism: cookie dan olish, yo'q bo'lsa DEMO_USERS dan
+  const displayFirstName = cookieFirstName || currentUser.firstName;
+  const displayLastName = cookieLastName || currentUser.lastName;
+  const initials = `${displayFirstName[0] || ""}${displayLastName[0] || ""}`.toUpperCase();
+
   const handleLogout = () => {
-    document.cookie = "steamify_role=; path=/; max-age=0";
-    document.cookie = "steamify_email=; path=/; max-age=0";
+    document.cookie = "STEMIFY_role=; path=/; max-age=0";
+    document.cookie = "STEMIFY_email=; path=/; max-age=0";
     setProfileOpen(false);
     setMobileMenuOpen(false);
     router.push("/login");
@@ -134,7 +146,6 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
   };
 
   const roleBadge = getRoleBadge(currentUser.role);
-  const initials = `${currentUser.firstName[0] || ""}${currentUser.lastName[0] || ""}`.toUpperCase();
 
   // Mobile menu navigation items
   const mobileNavLinks = [
@@ -203,8 +214,13 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
                   Rolni tanlang (Sinov)
                 </div>
                 {(["SUPER_ADMIN", "ADMIN", "MENTOR", "USER"] as UserRole[]).map((r) => {
-                  const u = DEMO_USERS[r];
                   const isActive = currentRole === r;
+                  const roleLabel: Record<UserRole, string> = {
+                    SUPER_ADMIN: "Bosh Admin",
+                    ADMIN: "Administrator",
+                    MENTOR: "Mentor",
+                    USER: "Ishtirokchi",
+                  };
                   return (
                     <button
                       key={r}
@@ -214,7 +230,7 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
                       className="w-full flex items-center justify-between px-3 py-2 text-xs text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors cursor-pointer"
                     >
                       <div>
-                        <div className="font-semibold">{u.firstName} {u.lastName}</div>
+                        <div className="font-semibold">{roleLabel[r]}</div>
                         <div className="text-[10px] text-cyan-600 dark:text-cyan-400">{r}</div>
                       </div>
                       {isActive && <Check className="w-4 h-4 text-cyan-500" aria-hidden="true" />}
@@ -256,7 +272,7 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
                 setProfileOpen(!profileOpen);
                 setRoleSwitcherOpen(false);
               }}
-              aria-label={`${currentUser.firstName} ${currentUser.lastName} — profil menyusi`}
+              aria-label={`${displayFirstName} ${displayLastName} — profil menyusi`}
               aria-expanded={profileOpen}
               aria-haspopup="menu"
               className="flex items-center gap-3 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900/60 transition-colors group cursor-pointer"
@@ -275,7 +291,7 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
               </div>
               <div className="text-left hidden md:block">
                 <div className="text-xs font-semibold text-slate-800 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
-                  {currentUser.firstName} {currentUser.lastName}
+                  {displayFirstName} {displayLastName}
                 </div>
                 <div className="text-[10px] font-bold tracking-wider text-cyan-600 dark:text-cyan-400 uppercase">
                   {currentUser.role === "SUPER_ADMIN"
@@ -297,7 +313,7 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
               >
                 <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 mb-1">
                   <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    Xush kelibsiz, {currentUser.firstName}!
+                    Xush kelibsiz, {displayFirstName}!
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                     XP:{" "}
@@ -410,8 +426,8 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
               >
                 <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center">
                   <Image
-                    src="/images/steamify-logo.png"
-                    alt="STEAMIFY"
+                    src="/images/STEMIFY-logo.png"
+                    alt="STEMIFY"
                     width={24}
                     height={24}
                     className="object-contain"
@@ -497,7 +513,7 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-slate-800 dark:text-white">
-                    {currentUser.firstName} {currentUser.lastName}
+                    {displayFirstName} {displayLastName}
                   </div>
                   <div className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono uppercase">
                     {currentUser.role}

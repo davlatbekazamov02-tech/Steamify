@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -70,7 +70,7 @@ export default function AdminTeamPage() {
       return;
     }
     if (!isValidImageUrl(formData.photoUrl)) {
-      setFormError("Noto'g'ri rasm URL. Faqat Unsplash, Cloudinary yoki Steamify domenlaridan rasm yuklang");
+      setFormError("Noto'g'ri rasm URL. Faqat Unsplash, Cloudinary yoki STEMIFY domenlaridan rasm yuklang");
       return;
     }
 
@@ -321,7 +321,7 @@ export default function AdminTeamPage() {
                 <textarea required value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                   rows={3} className={inputCls}
-                  placeholder="STEAM ta'lim sohasida 10+ yillik tajriba..." />
+                  placeholder="STEM Ta'lim sohasida 10+ yillik tajriba..." />
               </div>
 
               <div>
@@ -329,7 +329,7 @@ export default function AdminTeamPage() {
                 <input type="url" required value={formData.photoUrl}
                   onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })}
                   className={inputCls} placeholder="https://images.unsplash.com/..." />
-                <p className="text-[11px] text-slate-500 mt-1">Unsplash, Cloudinary yoki Steamify domeni</p>
+                <p className="text-[11px] text-slate-500 mt-1">Unsplash, Cloudinary yoki STEMIFY domeni</p>
               </div>
 
               <div>

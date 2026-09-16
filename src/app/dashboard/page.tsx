@@ -1,4 +1,4 @@
-import { getLeaderboardData, CURRENT_USER } from "@/lib/ranking";
+﻿import { getLeaderboardData, CURRENT_USER } from "@/lib/ranking";
 import { getRegionName } from "@/lib/regions";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Navbar } from "@/components/layout/navbar";
@@ -10,8 +10,8 @@ import { type Metadata } from "next";
 export const metadata: Metadata = {
   title: "Reyting — Global va Viloyat bo'yicha",
   description:
-    "STEAMIFY global va viloyat bo'yicha reyting jadvali. XP ballaringizni ko'ring va top ishtirokchilar bilan raqobatlashing.",
-  keywords: ["reyting", "leaderboard", "XP", "STEAM", "O'zbekiston"],
+    "STEMIFY global va viloyat bo'yicha reyting jadvali. XP ballaringizni ko'ring va top ishtirokchilar bilan raqobatlashing.",
+  keywords: ["reyting", "leaderboard", "XP", "STEM", "O'zbekiston"],
 };
 
 /**

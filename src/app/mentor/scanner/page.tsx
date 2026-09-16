@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { 
@@ -53,7 +53,7 @@ export default function MentorScannerPage() {
 
   const loadTeamsForRegion = (regionId: string) => {
     try {
-      const saved = localStorage.getItem(`steamify_teams_${regionId}`);
+      const saved = localStorage.getItem(`STEMIFY_teams_${regionId}`);
       if (saved) {
         const parsed = JSON.parse(saved);
         setTeams(parsed);
@@ -67,7 +67,7 @@ export default function MentorScannerPage() {
         ];
         setTeams(defaultTeams);
         setSelectedTeam(defaultTeams[0].name);
-        localStorage.setItem(`steamify_teams_${regionId}`, JSON.stringify(defaultTeams));
+        localStorage.setItem(`STEMIFY_teams_${regionId}`, JSON.stringify(defaultTeams));
       }
     } catch {
       setTeams([]);
@@ -94,7 +94,7 @@ export default function MentorScannerPage() {
     setTeams(updatedTeams);
     setSelectedTeam(createdTeam.name);
     try {
-      localStorage.setItem(`steamify_teams_${selectedRegion}`, JSON.stringify(updatedTeams));
+      localStorage.setItem(`STEMIFY_teams_${selectedRegion}`, JSON.stringify(updatedTeams));
     } catch {}
 
     setNewTeamName("");
@@ -136,7 +136,7 @@ export default function MentorScannerPage() {
       });
       setTeams(updatedTeams);
       try {
-        localStorage.setItem(`steamify_teams_${selectedRegion}`, JSON.stringify(updatedTeams));
+        localStorage.setItem(`STEMIFY_teams_${selectedRegion}`, JSON.stringify(updatedTeams));
       } catch {}
 
       setStatusMessage({

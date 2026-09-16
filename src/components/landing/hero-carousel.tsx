@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
@@ -71,7 +71,7 @@ export function HeroCarousel({ heroImages }: HeroCarouselProps) {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" aria-hidden="true" />
           <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider">
-            O&apos;zbekiston STEAM Platformasi
+            O&apos;zbekiston STEM platformasi
           </span>
         </div>
 
@@ -83,11 +83,11 @@ export function HeroCarousel({ heroImages }: HeroCarouselProps) {
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto font-light">
-          STEAM Ta&apos;lim va Musobaqa Platformasi
+          STEM ta&apos;lim va Musobaqa Platformasi
         </p>
 
         <p className="text-sm text-slate-400 mb-8 max-w-2xl mx-auto">
-          Science, Technology, Engineering, Arts, Mathematics sohalarida bilim va
+          Science, Technology, Engineering, Mathematics sohalarida bilim va
           ko&apos;nikmalaringizni oshiring, tadbirlarda qatnashing va reyting tizimida
           o&apos;z o&apos;rningizni egallang
         </p>

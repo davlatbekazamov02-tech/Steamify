@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { QRCodeSVG } from "qrcode.react";
@@ -17,7 +17,7 @@ export default function MyQrPage() {
 
   useEffect(() => {
     setQrToken(Math.random().toString(36).substring(2, 10).toUpperCase());
-    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
     if (match && match[2]) {
       setCurrentRole(match[2] as UserRole);
     }
@@ -108,8 +108,8 @@ export default function MyQrPage() {
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-[10px] text-slate-500 font-mono">
-                    Token: <span className="text-slate-800 dark:text-slate-300 font-bold">{qrToken}</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                    Token: <span className="text-slate-900 dark:text-slate-300 font-bold">{qrToken}</span>
                   </span>
                   <button
                     onClick={rotateToken}

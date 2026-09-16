@@ -1,4 +1,4 @@
-/**
+﻿/**
  * APPLICATION CONSTANTS
  * Centralized configuration values
  */
@@ -52,29 +52,29 @@ export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || `${APP_URL}/api`;
 
 export const EXTERNAL_URLS = {
-  TELEGRAM: 'https://t.me/steamifyuz',
-  INSTAGRAM: 'https://www.instagram.com/steamify.uz/',
-  WEBSITE: 'https://steamify.uz',
+  TELEGRAM: 'https://t.me/STEMIFYuz',
+  INSTAGRAM: 'https://www.instagram.com/STEMIFY.uz/',
+  WEBSITE: 'https://STEMIFY.uz',
 } as const;
 
 // ========================================
 // STORAGE KEYS
 // ========================================
 export const STORAGE_KEYS = {
-  THEME: 'steamify_theme',
-  USER_PROFILE: 'steamify_user_profile',
-  ROLE: 'steamify_role',
-  TEAMS: 'steamify_teams',
-  LANGUAGE: 'steamify_language',
+  THEME: 'STEMIFY_theme',
+  USER_PROFILE: 'STEMIFY_user_profile',
+  ROLE: 'STEMIFY_role',
+  TEAMS: 'STEMIFY_teams',
+  LANGUAGE: 'STEMIFY_language',
 } as const;
 
 // ========================================
 // COOKIE NAMES
 // ========================================
 export const COOKIE_NAMES = {
-  AUTH_TOKEN: 'steamify_auth',
-  ROLE: 'steamify_role',
-  REFRESH_TOKEN: 'steamify_refresh',
+  AUTH_TOKEN: 'STEMIFY_auth',
+  ROLE: 'STEMIFY_role',
+  REFRESH_TOKEN: 'STEMIFY_refresh',
 } as const;
 
 // ========================================
@@ -157,10 +157,9 @@ export const TOTAL_REGIONS = 14;
 // STEAM CATEGORIES
 // ========================================
 export const STEAM_CATEGORIES = {
-  SCIENCE: 'Science',
-  TECHNOLOGY: 'Technology',
+  SCIENCE:     'Science',
+  TECHNOLOGY:  'Technology',
   ENGINEERING: 'Engineering',
-  ARTS: 'Arts',
   MATHEMATICS: 'Mathematics',
 } as const;
 
