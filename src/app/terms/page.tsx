@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 antialiased">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#070b14]/80 backdrop-blur-lg border-b border-cyan-500/20">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-800 dark:text-slate-100 antialiased">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#070b14]/80 backdrop-blur-lg border-b border-slate-200 dark:border-cyan-500/20">
         <div className="container mx-auto px-4 h-16 flex items-center gap-4">
           <Link
             href="/"
-            className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm font-semibold"
+            className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors text-sm font-semibold"
           >
             <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             <span>Bosh sahifaga qaytish</span>

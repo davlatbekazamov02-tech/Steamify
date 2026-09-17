@@ -30,7 +30,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     // Load role from cookie
-    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
     if (match && match[2]) {
       const role = match[2] as UserRole;
       if (DEMO_USERS[role]) {

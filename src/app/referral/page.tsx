@@ -12,7 +12,7 @@ export default function ReferralPage() {
   const [currentRole, setCurrentRole] = useState<UserRole>("USER");
 
   useEffect(() => {
-    const match = document.cookie.match(new RegExp("(^| )STEMIFY_role=([^;]+)"));
+    const match = document.cookie.match(new RegExp("(^| )steamify_role=([^;]+)"));
     if (match && match[2]) setCurrentRole(match[2] as UserRole);
   }, []);
 

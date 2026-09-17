@@ -27,7 +27,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("STEMIFY_theme") as Theme | null;
+      const saved = localStorage.getItem("steamify_theme") as Theme | null;
       const activeTheme = saved === "light" || saved === "dark" ? saved : defaultTheme;
       setThemeState(activeTheme);
       document.documentElement.classList.remove("light", "dark");
@@ -40,7 +40,7 @@ export function ThemeProvider({
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
     try {
-      localStorage.setItem("STEMIFY_theme", newTheme);
+      localStorage.setItem("steamify_theme", newTheme);
     } catch (e) {}
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(newTheme);

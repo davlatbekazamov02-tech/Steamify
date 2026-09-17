@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "STEM platformasi — sessiyalar, tadbirlar, reyting va shaxsiy rivojlanish. Science, Technology, Engineering, Mathematics.",
   keywords: ["STEM", "ta'lim", "O'zbekiston", "reyting", "hackathon", "workshop"],
   authors: [{ name: "STEMIFY Team" }],
-  creator: "STEMIFY",
+  creator: "STEAMIFY",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
 };
 

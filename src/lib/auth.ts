@@ -7,8 +7,8 @@ export * from "./auth-types";
 export async function getCurrentUser(): Promise<SessionUser> {
   try {
     const cookieStore = await cookies();
-    const roleCookie = cookieStore.get("STEMIFY_role")?.value as UserRole | undefined;
-    const userIdCookie = cookieStore.get("STEMIFY_user_id")?.value;
+    const roleCookie = cookieStore.get("steamify_role")?.value as UserRole | undefined;
+    const userIdCookie = cookieStore.get("steamify_user_id")?.value;
 
     if (roleCookie && DEMO_USERS[roleCookie]) {
       return DEMO_USERS[roleCookie];

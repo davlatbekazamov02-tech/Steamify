@@ -17,7 +17,7 @@ export default function MyQrPage() {
 
   useEffect(() => {
     setQrToken(Math.random().toString(36).substring(2, 10).toUpperCase());
-    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
     if (match && match[2]) {
       setCurrentRole(match[2] as UserRole);
     }

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const cookieStore = await cookies();
     const maxAge = 60 * 60 * 24 * 30; // 30 kun
 
-    cookieStore.set("STEMIFY_role", role, {
+    cookieStore.set("steamify_role", role, {
       path: "/",
       maxAge,
       httpOnly: false, // client-side ham o'qishi kerak (middleware uchun)
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    cookieStore.set("STEMIFY_user_id", DEMO_USERS[role as UserRole].id, {
+    cookieStore.set("steamify_user_id", DEMO_USERS[role as UserRole].id, {
       path: "/",
       maxAge,
       httpOnly: false,

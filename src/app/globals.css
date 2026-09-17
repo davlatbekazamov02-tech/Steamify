@@ -210,3 +210,31 @@ main:hover::-webkit-scrollbar-thumb:hover {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* ✅ Light mode universal fixes */
+
+/* Sidebar light mode */
+:root .sidebar-nav-link {
+  color: #374151;
+}
+
+/* Input focus ring light mode */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* Table light mode border */
+.light table th,
+.light table td {
+  border-color: #e5e7eb;
+}
+
+/* Scrollbar light mode */
+:root:not(.dark) main:hover::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+}
+
+/* Badge/status light mode text visibility */
+:root:not(.dark) .status-badge {
+  color: inherit;
+}

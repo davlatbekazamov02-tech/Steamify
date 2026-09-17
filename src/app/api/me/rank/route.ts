@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const cookieStore = await cookies();
-    const userId = cookieStore.get("STEMIFY_user_id")?.value;
+    const userId = cookieStore.get("steamify_user_id")?.value;
 
     if (!userId) {
       return NextResponse.json(

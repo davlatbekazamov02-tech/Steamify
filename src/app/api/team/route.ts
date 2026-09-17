@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 // Role tekshiruvchi helper
 async function isAdmin(): Promise<boolean> {
   const cookieStore = await cookies();
-  const role = cookieStore.get("STEMIFY_role")?.value;
+  const role = cookieStore.get("steamify_role")?.value;
   return role === "ADMIN" || role === "SUPER_ADMIN";
 }
 

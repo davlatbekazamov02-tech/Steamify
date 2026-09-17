@@ -8,8 +8,8 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
   try {
     const cookieStore = await cookies();
-    const role = cookieStore.get("STEMIFY_role")?.value;
-    const mentorDbId = cookieStore.get("STEMIFY_user_id")?.value;
+    const role = cookieStore.get("steamify_role")?.value;
+    const mentorDbId = cookieStore.get("steamify_user_id")?.value;
 
     // Faqat mentor, admin, super_admin tekshira oladi
     if (!role || !["MENTOR", "ADMIN", "SUPER_ADMIN"].includes(role)) {

@@ -1,7 +1,6 @@
 ﻿import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Login talab qilinadigan sahifalar (prefix asosida)
 const PROTECTED_PREFIXES = [
   "/dashboard",
   "/events",
@@ -14,48 +13,47 @@ const PROTECTED_PREFIXES = [
   "/mentor",
 ];
 
-// Faqat ma'lum rollar kira oladigan sahifalar
 const ROLE_PROTECTED: Record<string, string[]> = {
   "/admin": ["ADMIN", "SUPER_ADMIN"],
   "/mentor": ["MENTOR", "ADMIN", "SUPER_ADMIN"],
 };
 
+const VALID_ROLES = ["USER", "MENTOR", "ADMIN", "SUPER_ADMIN"];
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const role = request.cookies.get("STEMIFY_role")?.value;
 
-  // ✅ Allaqachon login qilgan → /login ga kelsa dashboardga yo'naltir
-  if (pathname === "/login" && role) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  // ✅ Cookie nomi: steamify_role (barcha joyda bir xil)
+  const role = request.cookies.get("steamify_role")?.value;
+
+  // Allaqachon login qilgan → /login ga kelsa dashboardga
+  if (pathname === "/login" && role && VALID_ROLES.includes(role)) {
+    switch (role) {
+      case "SUPER_ADMIN": return NextResponse.redirect(new URL("/admin/admins", request.url));
+      case "ADMIN":       return NextResponse.redirect(new URL("/admin", request.url));
+      case "MENTOR":      return NextResponse.redirect(new URL("/mentor/scanner", request.url));
+      default:            return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
   }
 
-  // Himoyalangan sahifami tekshirish
+  // Himoyalangan sahifami?
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>
     pathname.startsWith(prefix)
   );
 
-  if (!isProtected) {
-    return NextResponse.next();
-  }
+  if (!isProtected) return NextResponse.next();
 
-  // Login qilinmagan — /login ga yo'naltirish
-  if (!role) {
+  // Login qilinmagan → /login ga
+  if (!role || !VALID_ROLES.includes(role)) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  // ✅ Cookie qiymatini faqat ruxsat etilgan rollar ichida tekshirish
-  const VALID_ROLES = ["USER", "MENTOR", "ADMIN", "SUPER_ADMIN"];
-  if (!VALID_ROLES.includes(role)) {
-    // Noto'g'ri cookie — login ga qaytarish va cookie o'chirish
-    const loginUrl = new URL("/login", request.url);
     const response = NextResponse.redirect(loginUrl);
-    response.cookies.delete("STEMIFY_role");
+    // Noto'g'ri cookie bo'lsa o'chirish
+    if (role) response.cookies.delete("steamify_role");
     return response;
   }
 
-  // Rol tekshiruvi (admin va mentor uchun)
+  // Rol tekshiruvi
   for (const [prefix, allowedRoles] of Object.entries(ROLE_PROTECTED)) {
     if (pathname.startsWith(prefix) && !allowedRoles.includes(role)) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -67,7 +65,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // API, _next, statik fayllar va public resurslarni o'tkazib yuborish
     "/((?!api|_next/static|_next/image|images|favicon.ico|.*\\..*).+)",
   ],
 };

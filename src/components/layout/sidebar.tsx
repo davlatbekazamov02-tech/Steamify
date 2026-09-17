@@ -30,15 +30,15 @@ export function Sidebar() {
   const [role, setRole] = useState<UserRole>("SUPER_ADMIN");
 
   useEffect(() => {
-    const match = document.cookie.match(new RegExp('(^| )STEMIFY_role=([^;]+)'));
+    const match = document.cookie.match(new RegExp('(^| )steamify_role=([^;]+)'));
     if (match && match[2]) {
       setRole(match[2] as UserRole);
     }
   }, [pathname]);
 
   const handleLogout = () => {
-    document.cookie = "STEMIFY_role=; path=/; max-age=0";
-    document.cookie = "STEMIFY_email=; path=/; max-age=0";
+    document.cookie = "steamify_role=; path=/; max-age=0";
+    document.cookie = "steamify_email=; path=/; max-age=0";
     router.push("/login");
   };
 

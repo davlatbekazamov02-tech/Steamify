@@ -45,13 +45,13 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
 
   useEffect(() => {
     setMounted(true);
-    const match = document.cookie.match(new RegExp("(^| )STEMIFY_role=([^;]+)"));
+    const match = document.cookie.match(new RegExp("(^| )steamify_role=([^;]+)"));
     if (match && match[2] && (match[2] as UserRole) in DEMO_USERS) {
       setCurrentRole(match[2] as UserRole);
     }
     // Cookie dan haqiqiy ism olish
-    const fnMatch = document.cookie.match(new RegExp("(^| )STEMIFY_firstName=([^;]+)"));
-    const lnMatch = document.cookie.match(new RegExp("(^| )STEMIFY_lastName=([^;]+)"));
+    const fnMatch = document.cookie.match(new RegExp("(^| )steamify_firstName=([^;]+)"));
+    const lnMatch = document.cookie.match(new RegExp("(^| )steamify_lastName=([^;]+)"));
     if (fnMatch?.[2]) setCookieFirstName(decodeURIComponent(fnMatch[2]));
     if (lnMatch?.[2]) setCookieLastName(decodeURIComponent(lnMatch[2]));
   }, []);
@@ -109,8 +109,10 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
   const initials = `${displayFirstName[0] || ""}${displayLastName[0] || ""}`.toUpperCase();
 
   const handleLogout = () => {
-    document.cookie = "STEMIFY_role=; path=/; max-age=0";
-    document.cookie = "STEMIFY_email=; path=/; max-age=0";
+    document.cookie = "steamify_role=; path=/; max-age=0";
+    document.cookie = "steamify_email=; path=/; max-age=0";
+    document.cookie = "steamify_firstName=; path=/; max-age=0";
+    document.cookie = "steamify_lastName=; path=/; max-age=0";
     setProfileOpen(false);
     setMobileMenuOpen(false);
     router.push("/login");
@@ -135,13 +137,13 @@ export function Navbar({ pageTitle = "REYTING" }: NavbarProps) {
   const getRoleBadge = (role: UserRole) => {
     switch (role) {
       case "SUPER_ADMIN":
-        return { label: "BOSH ADMIN", bg: "bg-purple-900/60 text-purple-300 border-purple-600/50" };
+        return { label: "BOSH ADMIN", bg: "bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-600/50" };
       case "ADMIN":
-        return { label: "ADMINISTRATOR", bg: "bg-emerald-900/60 text-emerald-300 border-emerald-600/50" };
+        return { label: "ADMINISTRATOR", bg: "bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600/50" };
       case "MENTOR":
-        return { label: "MENTOR", bg: "bg-amber-900/60 text-amber-300 border-amber-600/50" };
+        return { label: "MENTOR", bg: "bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600/50" };
       default:
-        return { label: "ISHTIROKCHI", bg: "bg-cyan-900/60 text-cyan-300 border-cyan-600/50" };
+        return { label: "ISHTIROKCHI", bg: "bg-cyan-100 dark:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 border-cyan-300 dark:border-cyan-600/50" };
     }
   };
 

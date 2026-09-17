@@ -61,20 +61,20 @@ export const EXTERNAL_URLS = {
 // STORAGE KEYS
 // ========================================
 export const STORAGE_KEYS = {
-  THEME: 'STEMIFY_theme',
-  USER_PROFILE: 'STEMIFY_user_profile',
-  ROLE: 'STEMIFY_role',
-  TEAMS: 'STEMIFY_teams',
-  LANGUAGE: 'STEMIFY_language',
+  THEME: 'steamify_theme',
+  USER_PROFILE: 'steamify_user_profile',
+  ROLE: 'steamify_role',
+  TEAMS: 'steamify_teams',
+  LANGUAGE: 'steamify_language',
 } as const;
 
 // ========================================
 // COOKIE NAMES
 // ========================================
 export const COOKIE_NAMES = {
-  AUTH_TOKEN: 'STEMIFY_auth',
-  ROLE: 'STEMIFY_role',
-  REFRESH_TOKEN: 'STEMIFY_refresh',
+  AUTH_TOKEN: 'steamify_auth',
+  ROLE: 'steamify_role',
+  REFRESH_TOKEN: 'steamify_refresh',
 } as const;
 
 // ========================================
